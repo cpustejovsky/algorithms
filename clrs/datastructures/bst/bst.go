@@ -8,7 +8,15 @@ type Node struct {
 }
 
 type Tree struct {
-	Root *Node
+	root *Node
+}
+
+func New() *Tree {
+	return &Tree{}
+}
+
+func Root(t *Tree) *Node {
+	return t.root
 }
 
 func Search(n *Node, value int) *Node {
@@ -72,7 +80,7 @@ func Predecessor(x *Node) *Node {
 
 func Insert(t *Tree, new *Node) {
 	var p *Node = nil
-	x := t.Root
+	x := t.root
 	//go down the tree until x is nil
 	for x != nil {
 		//keep track of parent as p
@@ -87,7 +95,7 @@ func Insert(t *Tree, new *Node) {
 	//now use the parent to insert correctly
 	new.Parent = p
 	if p == nil {
-		t.Root = new //in this case, the tree was empty
+		t.root = new //in this case, the tree was empty
 	} else if new.Value < p.Value {
 		p.Left = new
 	} else {
@@ -95,9 +103,9 @@ func Insert(t *Tree, new *Node) {
 	}
 }
 
-func Transplant(t *Tree, u, v *Node) {
+func transplant(t *Tree, u, v *Node) {
 	if u.Parent == nil {
-		t.Root = v
+		t.root = v
 	} else if u == u.Parent.Left {
 		u.Parent.Left = v
 	} else {
@@ -110,17 +118,17 @@ func Transplant(t *Tree, u, v *Node) {
 
 func Delete(t *Tree, z *Node) {
 	if z.Left == nil {
-		Transplant(t, z, z.Right)
+		transplant(t, z, z.Right)
 	} else if z.Right == nil {
-		Transplant(t, z, z.Left)
+		transplant(t, z, z.Left)
 	} else {
 		y := Minimum(z.Right)
 		if y.Parent != z {
-			Transplant(t, y, y.Right)
+			transplant(t, y, y.Right)
 			y.Right = z.Right
 			y.Right.Parent = y
 		}
-		Transplant(t, z, y)
+		transplant(t, z, y)
 		y.Left = z.Left
 		y.Left.Parent = y
 	}

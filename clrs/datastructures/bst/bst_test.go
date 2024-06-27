@@ -14,7 +14,7 @@ func TestInsert(t *testing.T) {
 	sort.Ints(arr)
 
 	var bstArrr []int
-	bst.Walk(tree.Root, &bstArrr)
+	bst.Walk(bst.Root(tree), &bstArrr)
 	if !equalSlices(arr, bstArrr) {
 		t.Fatalf("got %v, want %v", bstArrr, arr)
 	}
@@ -25,7 +25,7 @@ func TestMin(t *testing.T) {
 	arr := newRandomIntSlice(10)
 	tree := newTree(arr)
 	sort.Ints(arr)
-	n := bst.Minimum(tree.Root)
+	n := bst.Minimum(bst.Root(tree))
 	if n.Value != arr[0] {
 		t.Fatalf("got %v, want %v", n.Value, arr[0])
 	}
@@ -35,7 +35,7 @@ func TestMax(t *testing.T) {
 	arr := newRandomIntSlice(10)
 	tree := newTree(arr)
 	sort.Ints(arr)
-	n := bst.Maximum(tree.Root)
+	n := bst.Maximum(bst.Root(tree))
 	if n.Value != arr[len(arr)-1] {
 		t.Fatalf("got %v, want %v", n.Value, arr[len(arr)-1])
 	}
@@ -45,7 +45,7 @@ func TestSearch(t *testing.T) {
 	arr := newRandomIntSlice(10)
 	tree := newTree(arr)
 	sort.Ints(arr)
-	found := bst.Search(tree.Root, arr[4])
+	found := bst.Search(bst.Root(tree), arr[4])
 	if found.Value != arr[4] {
 		t.Fatalf("got %v, want %v", found.Value, arr[4])
 	}
@@ -55,7 +55,7 @@ func TestSuccessor(t *testing.T) {
 	arr := newRandomIntSlice(10)
 	tree := newTree(arr)
 	sort.Ints(arr)
-	found := bst.Search(tree.Root, arr[4])
+	found := bst.Search(bst.Root(tree), arr[4])
 	s := bst.Successor(found)
 	if s.Value != arr[5] {
 		t.Fatalf("got %v, want %v", found.Value, arr[5])
@@ -66,7 +66,7 @@ func TestPredecessor(t *testing.T) {
 	arr := newRandomIntSlice(10)
 	tree := newTree(arr)
 	sort.Ints(arr)
-	found := bst.Search(tree.Root, arr[4])
+	found := bst.Search(bst.Root(tree), arr[4])
 	s := bst.Predecessor(found)
 	if s.Value != arr[3] {
 		t.Fatalf("got %v, want %v", found.Value, arr[3])
@@ -74,17 +74,43 @@ func TestPredecessor(t *testing.T) {
 }
 
 func TestDelete(t *testing.T) {
-	arr := newRandomIntSlice(10)
-	tree := newTree(arr)
-	sort.Ints(arr)
-	found := bst.Search(tree.Root, arr[4])
-	bst.Delete(tree, found)
-	var bstArrr []int
-	bst.Walk(tree.Root, &bstArrr)
-	arr = append(arr[:4], arr[5:]...)
-	if !equalSlices(arr, bstArrr) {
-		t.Fatalf("got %v, want %v", bstArrr, arr)
-	}
+	t.Run("Delete Leaf", func(t *testing.T) {
+		arr := newRandomIntSlice(10)
+		tree := newTree(arr)
+		sort.Ints(arr)
+		found := bst.Search(bst.Root(tree), arr[9])
+		bst.Delete(tree, found)
+		var bstArrr []int
+		bst.Walk(bst.Root(tree), &bstArrr)
+		arr = arr[:9]
+		if !equalSlices(arr, bstArrr) {
+			t.Fatalf("got %v, want %v", bstArrr, arr)
+		}
+	})
+	t.Run("Delete root", func(t *testing.T) {
+		arr := newRandomIntSlice(10)
+		tree := newTree(arr)
+		sort.Ints(arr)
+		bst.Delete(tree, bst.Root(tree))
+		var bstArrr []int
+		bst.Walk(bst.Root(tree), &bstArrr)
+		if len(bstArrr) != len(arr)-1 {
+			t.Fatalf("got %v, want %v", len(bstArrr), len(arr)-1)
+		}
+	})
+	t.Run("Delete Node", func(t *testing.T) {
+		arr := newRandomIntSlice(10)
+		tree := newTree(arr)
+		sort.Ints(arr)
+		found := bst.Search(bst.Root(tree), arr[4])
+		bst.Delete(tree, found)
+		var bstArrr []int
+		bst.Walk(bst.Root(tree), &bstArrr)
+		arr = append(arr[:4], arr[5:]...)
+		if !equalSlices(arr, bstArrr) {
+			t.Fatalf("got %v, want %v", bstArrr, arr)
+		}
+	})
 }
 
 func newRandomIntSlice(length int) []int {
@@ -96,9 +122,7 @@ func newRandomIntSlice(length int) []int {
 }
 
 func newTree(arr []int) *bst.Tree {
-	tree := bst.Tree{
-		Root: nil,
-	}
+	tree := bst.New()
 
 	for _, v := range arr {
 		node := bst.Node{
@@ -107,9 +131,9 @@ func newTree(arr []int) *bst.Tree {
 			Left:   nil,
 			Right:  nil,
 		}
-		bst.Insert(&tree, &node)
+		bst.Insert(tree, &node)
 	}
-	return &tree
+	return tree
 }
 
 func equalSlices[C comparable](a, b []C) bool {
