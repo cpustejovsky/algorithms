@@ -1,68 +1,127 @@
 package bst
 
-type BinarySearchTree struct {
+type Node struct {
 	Value  int
-	Parent *BinarySearchTree
-	Left   *BinarySearchTree
-	Right  *BinarySearchTree
+	Parent *Node
+	Left   *Node
+	Right  *Node
 }
 
-func Search(t *BinarySearchTree, value int) *BinarySearchTree {
-	for t == nil && value != t.Value {
-		if value < t.Value {
-			t = t.Left
+type Tree struct {
+	Root *Node
+}
+
+func Search(n *Node, value int) *Node {
+	for n != nil && value != n.Value {
+		if value < n.Value {
+			n = n.Left
 		} else {
-			t = t.Right
+			n = n.Right
 		}
 	}
-	return t
+	return n
 }
 
-func Walk(t *BinarySearchTree, arr *[]int) {
-	if t != nil {
-		Walk(t.Left, arr)
-		*arr = append(*arr, t.Value)
-		Walk(t.Right, arr)
+func Walk(x *Node, arr *[]int) {
+	if x != nil {
+		Walk(x.Left, arr)
+		*arr = append(*arr, x.Value)
+		Walk(x.Right, arr)
 	}
 }
 
-func Minimum(t *BinarySearchTree) *BinarySearchTree {
-	for t.Left != nil {
-		t = t.Left
+func Minimum(x *Node) *Node {
+	for x.Left != nil {
+		x = x.Left
 	}
-	return t
+	return x
 }
 
-func Maximum(t *BinarySearchTree) *BinarySearchTree {
-	for t.Right != nil {
-		t = t.Right
+func Maximum(x *Node) *Node {
+	for x.Right != nil {
+		x = x.Right
 	}
-	return t
+	return x
 }
 
-// Successor takes a BinarySearchTree and find the next node based on in-order traversal
-func Successor(t *BinarySearchTree) *BinarySearchTree {
-	if t.Right != nil {
-		return Minimum(t.Right)
+// Successor takes a Node and find the next node based on in-order traversal
+func Successor(x *Node) *Node {
+	if x.Right != nil {
+		return Minimum(x.Right)
 	}
-	parent := t.Parent
-	for parent != nil && t == parent.Right {
-		t = parent
+	parent := x.Parent
+	for parent != nil && x == parent.Right {
+		x = parent
 		parent = parent.Parent
 	}
 	return parent
 }
 
-// Predecessor takes a BinarySearchTree and find the preceding node based on in-order traversal
-func Predecessor(t *BinarySearchTree) *BinarySearchTree {
-	//TODO: test this to ensure it's correct as you cannot find a 1:1 implementation in CLRS or online
-	if t.Left != nil {
-		return Maximum(t.Left)
+// Predecessor takes a Node and find the preceding node based on in-order traversal
+func Predecessor(x *Node) *Node {
+	if x.Left != nil {
+		return Maximum(x.Left)
 	}
-	parent := t.Parent
-	for parent != nil && t == parent.Left {
-		t = parent
+	parent := x.Parent
+	for parent != nil && x == parent.Left {
+		x = parent
 		parent = parent.Parent
 	}
 	return parent
+}
+
+func Insert(t *Tree, new *Node) {
+	var p *Node = nil
+	x := t.Root
+	//go down the tree until x is nil
+	for x != nil {
+		//keep track of parent as p
+		p = x
+		if new.Value < x.Value {
+			x = x.Left
+		} else {
+			x = x.Right
+		}
+	}
+	//you've gone too far in getting x to nil
+	//now use the parent to insert correctly
+	new.Parent = p
+	if p == nil {
+		t.Root = new //in this case, the tree was empty
+	} else if new.Value < p.Value {
+		p.Left = new
+	} else {
+		p.Right = new
+	}
+}
+
+func Transplant(t *Tree, u, v *Node) {
+	if u.Parent == nil {
+		t.Root = v
+	} else if u == u.Parent.Left {
+		u.Parent.Left = v
+	} else {
+		u.Parent.Right = v
+	}
+	if v != nil {
+		v.Parent = u.Parent
+	}
+}
+
+func Delete(t *Tree, z *Node) {
+	if z.Left == nil {
+		Transplant(t, z, z.Right)
+	} else if z.Right == nil {
+		Transplant(t, z, z.Left)
+	} else {
+		y := Minimum(z.Right)
+		if y.Parent != z {
+			Transplant(t, y, y.Right)
+			y.Right = z.Right
+			y.Right.Parent = y
+		}
+		Transplant(t, z, y)
+		y.Left = z.Left
+		y.Left.Parent = y
+	}
 }
