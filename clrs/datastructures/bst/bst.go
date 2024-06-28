@@ -20,14 +20,14 @@ func Root(t *Tree) *Node {
 }
 
 func Search(n *Node, value int) *Node {
-	for n != nil && value != n.Value {
-		if value < n.Value {
-			n = n.Left
-		} else {
-			n = n.Right
-		}
+	if n == nil || value == n.Value {
+		return n
 	}
-	return n
+	if value < n.Value {
+		return Search(n.Left, value)
+	} else {
+		return Search(n.Right, value)
+	}
 }
 
 func Walk(x *Node, arr *[]int) {
@@ -39,17 +39,17 @@ func Walk(x *Node, arr *[]int) {
 }
 
 func Minimum(x *Node) *Node {
-	for x.Left != nil {
-		x = x.Left
+	if x.Left == nil {
+		return x
 	}
-	return x
+	return Minimum(x.Left)
 }
 
 func Maximum(x *Node) *Node {
-	for x.Right != nil {
-		x = x.Right
+	if x.Right == nil {
+		return x
 	}
-	return x
+	return Maximum(x.Right)
 }
 
 // Successor takes a Node and find the next node based on in-order traversal
@@ -58,24 +58,22 @@ func Successor(x *Node) *Node {
 		return Minimum(x.Right)
 	}
 	parent := x.Parent
-	for parent != nil && x == parent.Right {
-		x = parent
-		parent = parent.Parent
+	if parent == nil || x != parent.Right {
+		return parent
 	}
-	return parent
+	return Successor(parent)
 }
 
 // Predecessor takes a Node and find the preceding node based on in-order traversal
 func Predecessor(x *Node) *Node {
 	if x.Left != nil {
-		return Maximum(x.Left)
+		return Maximum(x.Right)
 	}
 	parent := x.Parent
-	for parent != nil && x == parent.Left {
-		x = parent
-		parent = parent.Parent
+	if parent == nil || x != parent.Left {
+		return parent
 	}
-	return parent
+	return Predecessor(parent)
 }
 
 func Insert(t *Tree, new *Node) {

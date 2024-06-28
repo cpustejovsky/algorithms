@@ -2,14 +2,13 @@ package bst_test
 
 import (
 	"github.com/cpustejovsky/algorithms/clrs/datastructures/bst"
-	"math/rand"
 	"sort"
 	"testing"
 )
 
 // TODO: get to 100% test coverage to make sure you understand how to trigger each case with a test
 func TestInsert(t *testing.T) {
-	arr := newRandomIntSlice(10)
+	arr := intSlice(10)
 	tree := newTree(arr)
 	sort.Ints(arr)
 
@@ -22,7 +21,7 @@ func TestInsert(t *testing.T) {
 }
 
 func TestMin(t *testing.T) {
-	arr := newRandomIntSlice(10)
+	arr := intSlice(10)
 	tree := newTree(arr)
 	sort.Ints(arr)
 	n := bst.Minimum(bst.Root(tree))
@@ -32,7 +31,7 @@ func TestMin(t *testing.T) {
 }
 
 func TestMax(t *testing.T) {
-	arr := newRandomIntSlice(10)
+	arr := intSlice(10)
 	tree := newTree(arr)
 	sort.Ints(arr)
 	n := bst.Maximum(bst.Root(tree))
@@ -42,7 +41,7 @@ func TestMax(t *testing.T) {
 }
 
 func TestSearch(t *testing.T) {
-	arr := newRandomIntSlice(10)
+	arr := intSlice(10)
 	tree := newTree(arr)
 	sort.Ints(arr)
 	found := bst.Search(bst.Root(tree), arr[4])
@@ -52,30 +51,31 @@ func TestSearch(t *testing.T) {
 }
 
 func TestSuccessor(t *testing.T) {
-	arr := newRandomIntSlice(10)
+	arr := intSlice(10)
 	tree := newTree(arr)
 	sort.Ints(arr)
 	found := bst.Search(bst.Root(tree), arr[4])
 	s := bst.Successor(found)
+
 	if s.Value != arr[5] {
-		t.Fatalf("got %v, want %v", found.Value, arr[5])
+		t.Fatalf("got %v, want %v", s.Value, arr[5])
 	}
 }
 
 func TestPredecessor(t *testing.T) {
-	arr := newRandomIntSlice(10)
+	arr := intSlice(10)
 	tree := newTree(arr)
 	sort.Ints(arr)
 	found := bst.Search(bst.Root(tree), arr[4])
 	s := bst.Predecessor(found)
 	if s.Value != arr[3] {
-		t.Fatalf("got %v, want %v", found.Value, arr[3])
+		t.Fatalf("got %v, want %v", s.Value, arr[3])
 	}
 }
 
 func TestDelete(t *testing.T) {
 	t.Run("Delete Leaf", func(t *testing.T) {
-		arr := newRandomIntSlice(10)
+		arr := intSlice(10)
 		tree := newTree(arr)
 		sort.Ints(arr)
 		found := bst.Search(bst.Root(tree), arr[9])
@@ -88,7 +88,7 @@ func TestDelete(t *testing.T) {
 		}
 	})
 	t.Run("Delete root", func(t *testing.T) {
-		arr := newRandomIntSlice(10)
+		arr := intSlice(10)
 		tree := newTree(arr)
 		sort.Ints(arr)
 		bst.Delete(tree, bst.Root(tree))
@@ -99,7 +99,7 @@ func TestDelete(t *testing.T) {
 		}
 	})
 	t.Run("Delete Node", func(t *testing.T) {
-		arr := newRandomIntSlice(10)
+		arr := intSlice(10)
 		tree := newTree(arr)
 		sort.Ints(arr)
 		found := bst.Search(bst.Root(tree), arr[4])
@@ -113,10 +113,10 @@ func TestDelete(t *testing.T) {
 	})
 }
 
-func newRandomIntSlice(length int) []int {
+func intSlice(length int) []int {
 	arr := make([]int, length)
 	for i := 0; i < length; i++ {
-		arr[i] = rand.Intn(length)
+		arr[i] = i
 	}
 	return arr
 }
