@@ -2,9 +2,10 @@ package stack_test
 
 import (
 	"errors"
-	"github.com/cpustejovsky/algorithms/clrs/datastructures/stack"
 	"reflect"
 	"testing"
+
+	"github.com/cpustejovsky/algorithms/clrs/datastructures/stack"
 )
 
 func TestStack_Push(t *testing.T) {
