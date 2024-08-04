@@ -1,4 +1,6 @@
-package clrs
+package merge
+
+import "github.com/cpustejovsky/algorithms/clrs/sorting/selection"
 
 func MergeSort(nums []int, limit int) []int {
 	length := len(nums)
@@ -6,7 +8,7 @@ func MergeSort(nums []int, limit int) []int {
 		return nums
 	}
 	if length < limit {
-		return SelectionSort(nums)
+		return selection.SelectionSort(nums)
 	}
 	middle := length / 2
 	left := MergeSort(nums[:middle], limit)

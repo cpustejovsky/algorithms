@@ -1,4 +1,4 @@
-package clrs
+package selection
 
 func SelectionSort(nums []int) []int {
 	for i := 0; i < len(nums); i++ {
