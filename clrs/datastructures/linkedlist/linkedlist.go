@@ -11,11 +11,14 @@ func New(val int) *Node {
 	}
 }
 
-func Search(n *Node, value int) *Node {
-	if n == nil || value == n.Value {
-		return n
+func Search(n **Node, value int) *Node {
+	cur := n
+	for ; (*cur) != nil; cur = &(*cur).Next {
+		if &(*cur).Value == &value {
+			return *cur
+		}
 	}
-	return Search(n.Next, value)
+	return nil
 }
 
 func Walk(n **Node, arr *[]int) {
@@ -23,10 +26,6 @@ func Walk(n **Node, arr *[]int) {
 	for ; (*cur) != nil; cur = &(*cur).Next {
 		*arr = append(*arr, (*cur).Value)
 	}
-	// if x != nil {
-	// 	Walk(x.Next, arr)
-	// 	*arr = append(*arr, x.Value)
-	// }
 }
 
 func Insert(n **Node, val int) {

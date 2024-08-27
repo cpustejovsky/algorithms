@@ -16,12 +16,16 @@ func TestNew(t *testing.T) {
 
 func TestInsert(t *testing.T) {
 	ll := linkedlist.New(42)
+
 	var arr []int
 	linkedlist.Walk(&ll, &arr)
+
 	if len(arr) != 1 {
 		t.Fatalf("got %v, wanted %v\n", len(arr), 1)
 	}
+
 	linkedlist.Insert(&ll, 43)
+
 	arr = []int{}
 	linkedlist.Walk(&ll, &arr)
 	if len(arr) != 2 {
