@@ -14,6 +14,40 @@ func TestNew(t *testing.T) {
 	}
 }
 
+func TestDelete(t *testing.T) {
+	ll := linkedlist.New(42)
+	linkedlist.Insert(&ll, 43)
+	linkedlist.Insert(&ll, 45)
+	linkedlist.Insert(&ll, 47)
+	linkedlist.Insert(&ll, 50)
+	expectedLength := 5
+	var arr []int
+	linkedlist.Walk(&ll, &arr)
+	if len(arr) != expectedLength {
+		t.Fatalf("got %v, wanted %v\n", len(arr), expectedLength)
+	}
+	linkedlist.Delete(&ll, 42)
+	expectedLength--
+	arr = []int{}
+	linkedlist.Walk(&ll, &arr)
+	if len(arr) != expectedLength {
+		t.Fatalf("got %v, wanted %v\n", len(arr), expectedLength)
+	}
+	linkedlist.Delete(&ll, 50)
+	expectedLength--
+	arr = []int{}
+	linkedlist.Walk(&ll, &arr)
+	if len(arr) != expectedLength {
+		t.Fatalf("got %v, wanted %v\n", len(arr), expectedLength)
+	}
+	linkedlist.Delete(&ll, 45)
+	expectedLength--
+	arr = []int{}
+	linkedlist.Walk(&ll, &arr)
+	if len(arr) != expectedLength {
+		t.Fatalf("got %v, wanted %v\n", len(arr), expectedLength)
+	}
+}
 func TestInsert(t *testing.T) {
 	ll := linkedlist.New(42)
 

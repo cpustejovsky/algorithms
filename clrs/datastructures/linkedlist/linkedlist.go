@@ -12,8 +12,7 @@ func New(val int) *Node {
 }
 
 func Search(n **Node, value int) *Node {
-	cur := n
-	for ; (*cur) != nil; cur = &(*cur).Next {
+	for cur := n; (*cur) != nil; cur = &(*cur).Next {
 		if &(*cur).Value == &value {
 			return *cur
 		}
@@ -22,8 +21,7 @@ func Search(n **Node, value int) *Node {
 }
 
 func Walk(n **Node, arr *[]int) {
-	cur := n
-	for ; (*cur) != nil; cur = &(*cur).Next {
+	for cur := n; (*cur) != nil; cur = &(*cur).Next {
 		*arr = append(*arr, (*cur).Value)
 	}
 }
@@ -35,4 +33,20 @@ func Insert(n **Node, val int) {
 	*cur = &Node{
 		Value: val,
 	}
+}
+
+func Delete(n **Node, value int) {
+	var prev **Node
+	cur := n
+	if (*cur) != nil && (*cur).Value == value {
+		*n = (*cur).Next
+		return
+	}
+	for ; (*cur) != nil && (*cur).Value != value; cur = &(*cur).Next {
+		prev = cur
+	}
+	if (*cur) != nil && prev != nil {
+		(*prev).Next = (*cur).Next
+	}
+
 }
