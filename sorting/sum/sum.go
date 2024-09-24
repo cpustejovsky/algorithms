@@ -1,6 +1,6 @@
-package Ch2
+package sum
 
-import "github.com/cpustejovsky/algorithms/clrs/sorting/merge"
+import "github.com/cpustejovsky/algorithms/sorting/merge"
 
 func Sum(nums []int, sum int) bool {
 	//Use Merge Sort that that's O(n lg n)

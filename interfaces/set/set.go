@@ -1,26 +1,26 @@
 package set
 
 type Set interface {
-	// Build takes any sequence and creates a Set
-	Build([]any)
-	// Len returns the length of the Set
-	Len() int
-	// Find returns the item with matching key in Set
-	Find(any) any
+	// Search returns the item with matching key in Set
+	Search(any) any
 	// Insert takes an iterable value and adds it to Set
 	Insert(any)
 	// Remove and return the store item with matching key
 	Delete(any) any
+	Minimum() any
+	// Return stored item with smallest key
+	Maximum() any
+	// Return store itme with smallest key largest than key provided
+	Successor(any) any
+	// Return store itme with smallest key smallest than key provided
+	Predecessor(any) any
 	// Return sorted items in key order
 	Iter_Order() []any
 	// Return stored item with largest key
-	FindMin() any
-	// Return stored item with smallest key
-	FinyMax() any
-	// Return store itme with smallest key largest than key provided
-	FindNext(any) any
-	// Return store itme with smallest key smallest than key provided
-	FindPrev(any) any
+	// Build takes any sequence and creates a Set
+	Build([]any)
+	// Len returns the length of the Set
+	Len() int
 }
 
 /*

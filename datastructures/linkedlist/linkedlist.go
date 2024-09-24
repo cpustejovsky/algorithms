@@ -35,6 +35,20 @@ func Insert(n **Node, val int) {
 	}
 }
 
+func InsertWithoutPP(n *Node, val int) {
+	newNode := &Node{
+		Value: val,
+	}
+	if n == nil {
+		n = newNode
+	}
+	cur := n
+	for cur.Next != nil {
+		cur = cur.Next
+	}
+	cur.Next = newNode
+}
+
 func Delete(n **Node, value int) {
 	var prev **Node
 	cur := n
@@ -49,4 +63,15 @@ func Delete(n **Node, value int) {
 		(*prev).Next = (*cur).Next
 	}
 
+}
+
+func Reverse(n *Node) {
+	a := n.Next
+	b := n
+	for a != nil {
+		tmp := a.Next
+		a.Next = b
+		b = a
+		a = tmp
+	}
 }
