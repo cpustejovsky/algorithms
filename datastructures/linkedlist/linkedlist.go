@@ -65,13 +65,15 @@ func Delete(n **Node, value int) {
 
 }
 
-func Reverse(n *Node) {
-	a := n.Next
-	b := n
-	for a != nil {
-		tmp := a.Next
-		a.Next = b
-		b = a
-		a = tmp
+func Reverse(n *Node) *Node {
+	var prev *Node
+	cur := n
+	for cur != nil {
+		next := cur.Next
+		cur.Next = prev
+
+		prev = cur
+		cur = next
 	}
+	return prev
 }

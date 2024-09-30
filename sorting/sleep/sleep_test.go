@@ -3,7 +3,7 @@ package sleep_test
 import (
 	"testing"
 
-	"github.com/cpustejovsky/algorithms/clrs/sorting/sleep"
+	"github.com/cpustejovsky/algorithms/sorting/sleep"
 )
 
 func TestSleepSort(t *testing.T) {

@@ -1,36 +1,37 @@
-package Ch2_test
+package insertion_test
 
 import (
-	"github.com/cpustejovsky/algorithms/clrs/Ch2"
 	"testing"
+
+	"github.com/cpustejovsky/algorithms/sorting/insertion"
 )
 
-func TestInsertionSort(t *testing.T) {
+func TestSort(t *testing.T) {
 	input := []int{5, 2, 4, 6, 1, 3}
 	want := []int{1, 2, 3, 4, 5, 6}
-	got := Ch2.InsertionSort(input)
+	got := insertion.Sort(input)
 	if !EqualIntSlices(want, got) {
 		t.Fatalf("got:\t%v\nwant:\t%v\n", got, want)
 	}
 	input = []int{31, 41, 59, 26, 41, 58}
 	want = []int{26, 31, 41, 41, 58, 59}
-	got = Ch2.InsertionSort(input)
+	got = insertion.Sort(input)
 	if !EqualIntSlices(want, got) {
 		t.Fatalf("got:\t%v\nwant:\t%v\n", got, want)
 	}
 }
 
-func TestReverseInsertionSort(t *testing.T) {
+func TestReverseSort(t *testing.T) {
 	input := []int{5, 2, 4, 6, 1, 3}
 	want := []int{6, 5, 4, 3, 2, 1}
-	got := Ch2.ReverseInsertionSort(input)
+	got := insertion.ReverseSort(input)
 	if !EqualIntSlices(want, got) {
 		t.Fatalf("got:\t%v\nwant:\t%v\n", got, want)
 	}
 	input = []int{31, 41, 59, 26, 41, 58}
 	want = []int{26, 31, 41, 41, 58, 59}
 	want = []int{59, 58, 41, 41, 31, 26}
-	got = Ch2.ReverseInsertionSort(input)
+	got = insertion.ReverseSort(input)
 	if !EqualIntSlices(want, got) {
 		t.Fatalf("got:\t%v\nwant:\t%v\n", got, want)
 	}

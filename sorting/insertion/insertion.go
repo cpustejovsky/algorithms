@@ -1,6 +1,6 @@
-package Ch2
+package insertion
 
-func InsertionSort(arr []int) []int {
+func Sort(arr []int) []int {
 	//loop through array
 	for i := 1; i < len(arr); i++ {
 		key := arr[i]
@@ -21,7 +21,7 @@ func InsertionSort(arr []int) []int {
 	return arr
 }
 
-func ReverseInsertionSort(arr []int) []int {
+func ReverseSort(arr []int) []int {
 	//loop through array
 	for i := 1; i < len(arr); i++ {
 		key := arr[i]

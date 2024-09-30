@@ -1,8 +1,9 @@
 package dynamic_arrays_test
 
 import (
-	"github.com/cpustejovsky/algorithms/clrs/datastructures/dynamic_arrays"
 	"testing"
+
+	"github.com/cpustejovsky/algorithms/datastructures/dynamic_arrays"
 )
 
 func TestNew(t *testing.T) {

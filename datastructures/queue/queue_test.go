@@ -2,8 +2,9 @@ package queue_test
 
 import (
 	"errors"
-	"github.com/cpustejovsky/algorithms/clrs/datastructures/queue"
 	"testing"
+
+	"github.com/cpustejovsky/algorithms/datastructures/queue"
 )
 
 func TestEnqueue(t *testing.T) {

@@ -3,7 +3,7 @@ package merge_test
 import (
 	"testing"
 
-	"github.com/cpustejovsky/algorithms/clrs/sorting/merge"
+	"github.com/cpustejovsky/algorithms/sorting/merge"
 )
 
 func TestMergeSort(t *testing.T) {

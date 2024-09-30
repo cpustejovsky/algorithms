@@ -1,4 +1,4 @@
-package binary_search
+package bsearch
 
 // Search takes a sorted array of int and returns the index at which the target is found.
 // Returns len(nums) if target is not found

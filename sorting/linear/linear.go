@@ -1,6 +1,6 @@
-package Ch2
+package linear
 
-func LinearSearch(nums []int, val int) *int {
+func Search(nums []int, val int) *int {
 	/*
 		Loop Invariant:
 			At the start of each iteration of the for-range loop,

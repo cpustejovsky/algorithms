@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/cpustejovsky/algorithms/clrs/datastructures/stack"
+	"github.com/cpustejovsky/algorithms/datastructures/stack"
 )
 
 func TestStack_Push(t *testing.T) {

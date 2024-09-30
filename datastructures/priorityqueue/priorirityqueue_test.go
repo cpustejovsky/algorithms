@@ -1,14 +1,16 @@
-package priorityqueue
+package priorityqueue_test
 
 import (
 	"container/heap"
 	"math/rand"
 	"sort"
 	"testing"
+
+	"github.com/cpustejovsky/algorithms/datastructures/priorityqueue"
 )
 
 func TestPriorityQueue(t *testing.T) {
-	var p PriorityQueue
+	var p priorityqueue.PriorityQueue
 	nums := make([]int, 1000)
 	for i := 0; i < 1000; i++ {
 		nums[i] = rand.Intn(1000)
@@ -63,7 +65,7 @@ func BenchmarkPriorityQueue(b *testing.B) {
 	copy(sorted, nums)
 	sort.Ints(sorted)
 	for i := 0; i < b.N; i++ {
-		var p PriorityQueue
+		var p priorityqueue.PriorityQueue
 		for _, num := range nums {
 			p.Insert(num)
 		}

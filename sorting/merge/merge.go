@@ -1,6 +1,6 @@
 package merge
 
-import "github.com/cpustejovsky/algorithms/clrs/sorting/selection"
+import "github.com/cpustejovsky/algorithms/sorting/selection"
 
 func MergeSort(nums []int, limit int) []int {
 	length := len(nums)

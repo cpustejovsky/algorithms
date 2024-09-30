@@ -2,7 +2,7 @@ package sum
 
 import "github.com/cpustejovsky/algorithms/sorting/merge"
 
-func Sum(nums []int, sum int) bool {
+func Sort(nums []int, sum int) bool {
 	//Use Merge Sort that that's O(n lg n)
 	sorted := merge.MergeSort(nums, 4)
 	//Set values for index

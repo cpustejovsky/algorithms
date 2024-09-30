@@ -3,7 +3,7 @@ package selection_test
 import (
 	"testing"
 
-	"github.com/cpustejovsky/algorithms/clrs/sorting/selection"
+	"github.com/cpustejovsky/algorithms/sorting/selection"
 )
 
 func TestSelectionSort(t *testing.T) {

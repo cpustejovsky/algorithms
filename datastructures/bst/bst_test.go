@@ -1,9 +1,10 @@
 package bst_test
 
 import (
-	"github.com/cpustejovsky/algorithms/clrs/datastructures/bst"
 	"sort"
 	"testing"
+
+	"github.com/cpustejovsky/algorithms/datastructures/bst"
 )
 
 // TODO: get to 100% test coverage to make sure you understand how to trigger each case with a test

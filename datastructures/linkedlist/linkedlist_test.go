@@ -3,7 +3,7 @@ package linkedlist_test
 import (
 	"testing"
 
-	"github.com/cpustejovsky/algorithms/clrs/datastructures/linkedlist"
+	"github.com/cpustejovsky/algorithms/datastructures/linkedlist"
 )
 
 func TestNew(t *testing.T) {
@@ -93,12 +93,12 @@ func TestReverse(t *testing.T) {
 	linkedlist.Insert(&ll, 50)
 	var arr1 []int
 	linkedlist.Walk(&ll, &arr1)
-	linkedlist.Reverse(ll)
+	ll = linkedlist.Reverse(ll)
 	var arr2 []int
 	linkedlist.Walk(&ll, &arr2)
 	for i, val := range arr1 {
 		if val != arr2[len(arr2)-1-i] {
-			t.Errorf("%v is not a reversal of %v", arr2, arr1)
+			t.Fatalf("%v is not a reversal of %v", arr2, arr1)
 		}
 	}
 }
