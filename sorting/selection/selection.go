@@ -1,6 +1,6 @@
 package selection
 
-func SelectionSort(nums []int) []int {
+func Sort(nums []int) []int {
 	for i := 0; i < len(nums); i++ {
 		minimumIndex := i
 		for currentIndex := i + 1; currentIndex < len(nums); currentIndex++ {

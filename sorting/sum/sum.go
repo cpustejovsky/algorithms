@@ -4,7 +4,7 @@ import "github.com/cpustejovsky/algorithms/sorting/merge"
 
 func Sort(nums []int, sum int) bool {
 	//Use Merge Sort that that's O(n lg n)
-	sorted := merge.MergeSort(nums, 4)
+	sorted := merge.Sort(nums, 4)
 	//Set values for index
 	i := 0
 	j := len(sorted) - 1

@@ -2,17 +2,17 @@ package merge
 
 import "github.com/cpustejovsky/algorithms/sorting/selection"
 
-func MergeSort(nums []int, limit int) []int {
+func Sort(nums []int, limit int) []int {
 	length := len(nums)
 	if length < 2 {
 		return nums
 	}
 	if length < limit {
-		return selection.SelectionSort(nums)
+		return selection.Sort(nums)
 	}
 	middle := length / 2
-	left := MergeSort(nums[:middle], limit)
-	right := MergeSort(nums[middle:], limit)
+	left := Sort(nums[:middle], limit)
+	right := Sort(nums[middle:], limit)
 	return merge(left, right)
 }
 

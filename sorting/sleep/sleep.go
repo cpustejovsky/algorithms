@@ -4,7 +4,7 @@ import (
 	"time"
 )
 
-func SleepSort(arr []int) []int {
+func Sort(arr []int) []int {
 	var nums = make(chan int)
 	var sorted []int
 	for _, num := range arr {
