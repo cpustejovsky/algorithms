@@ -1,25 +1,27 @@
 package bst
 
-type Node struct {
-	Value  int
-	Parent *Node
-	Left   *Node
-	Right  *Node
+import "cmp"
+
+type Node[T cmp.Ordered] struct {
+	Value  T
+	Parent *Node[T]
+	Left   *Node[T]
+	Right  *Node[T]
 }
 
-type Tree struct {
-	root *Node
+type Tree[T cmp.Ordered] struct {
+	root *Node[T]
 }
 
-func New() *Tree {
-	return &Tree{}
+func New[T cmp.Ordered]() *Tree[T] {
+	return &Tree[T]{}
 }
 
-func Root(t *Tree) *Node {
+func Root[T cmp.Ordered](t *Tree[T]) *Node[T] {
 	return t.root
 }
 
-func Search(n *Node, value int) *Node {
+func Search[T cmp.Ordered](n *Node[T], value T) *Node[T] {
 	if n == nil || value == n.Value {
 		return n
 	}
@@ -30,7 +32,7 @@ func Search(n *Node, value int) *Node {
 	}
 }
 
-func Walk(x *Node, arr *[]int) {
+func Walk[T cmp.Ordered](x *Node[T], arr *[]T) {
 	if x != nil {
 		Walk(x.Left, arr)
 		*arr = append(*arr, x.Value)
@@ -38,22 +40,22 @@ func Walk(x *Node, arr *[]int) {
 	}
 }
 
-func Minimum(x *Node) *Node {
+func Minimum[T cmp.Ordered](x *Node[T]) *Node[T] {
 	if x.Left == nil {
 		return x
 	}
 	return Minimum(x.Left)
 }
 
-func Maximum(x *Node) *Node {
+func Maximum[T cmp.Ordered](x *Node[T]) *Node[T] {
 	if x.Right == nil {
 		return x
 	}
 	return Maximum(x.Right)
 }
 
-// Successor takes a Node and find the next node based on in-order traversal
-func Successor(x *Node) *Node {
+// Successor takes a Node[T] and find the next node based on in-order traversal
+func Successor[T cmp.Ordered](x *Node[T]) *Node[T] {
 	if x.Right != nil {
 		return Minimum(x.Right)
 	}
@@ -64,8 +66,8 @@ func Successor(x *Node) *Node {
 	return Successor(parent)
 }
 
-// Predecessor takes a Node and find the preceding node based on in-order traversal
-func Predecessor(x *Node) *Node {
+// Predecessor takes a Node[T] and find the preceding node based on in-order traversal
+func Predecessor[T cmp.Ordered](x *Node[T]) *Node[T] {
 	if x.Left != nil {
 		return Maximum(x.Right)
 	}
@@ -76,8 +78,8 @@ func Predecessor(x *Node) *Node {
 	return Predecessor(parent)
 }
 
-func Insert(t *Tree, new *Node) {
-	var p *Node = nil
+func Insert[T cmp.Ordered](t *Tree[T], new *Node[T]) {
+	var p *Node[T] = nil
 	x := t.root
 	//go down the tree until x is nil
 	for x != nil {
@@ -101,7 +103,7 @@ func Insert(t *Tree, new *Node) {
 	}
 }
 
-func transplant(t *Tree, u, v *Node) {
+func transplant[T cmp.Ordered](t *Tree[T], u, v *Node[T]) {
 	if u.Parent == nil {
 		t.root = v
 	} else if u == u.Parent.Left {
@@ -114,7 +116,7 @@ func transplant(t *Tree, u, v *Node) {
 	}
 }
 
-func Delete(t *Tree, z *Node) {
+func Delete[T cmp.Ordered](t *Tree[T], z *Node[T]) {
 	if z.Left == nil {
 		transplant(t, z, z.Right)
 	} else if z.Right == nil {

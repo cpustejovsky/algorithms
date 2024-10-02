@@ -1,6 +1,7 @@
 package bst_test
 
 import (
+	"cmp"
 	"sort"
 	"testing"
 
@@ -122,11 +123,11 @@ func intSlice(length int) []int {
 	return arr
 }
 
-func newTree(arr []int) *bst.Tree {
-	tree := bst.New()
+func newTree[T cmp.Ordered](arr []T) *bst.Tree[T] {
+	tree := bst.New[T]()
 
 	for _, v := range arr {
-		node := bst.Node{
+		node := bst.Node[T]{
 			Value:  v,
 			Parent: nil,
 			Left:   nil,
